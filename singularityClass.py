@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import numpy as np
 class singularity:
     def __init__(self,constant, exponent, coefficientOfFunction):
         self.constant=constant
@@ -20,3 +22,22 @@ class singularity:
         else :
             a=str(self.coefficientOfFunction)+'*'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
         return a
+    def plot(self,length):
+        y=[]
+        x= [x / 100.0 for x in range(0, 1000, 1)]
+        y=[]
+        for someNumber in x:
+            if (someNumber< self.constant and self.exponent >= 0):
+                y.append(0)
+            elif (someNumber >self.constant and self.exponent >=0):
+                y.append(self.coefficientOfFunction*((someNumber-self.constant)** self.exponent))
+            elif (self.exponent == -1):
+                if (someNumber == self.constant):
+                    print("entered condition")
+                    y.append(self.coefficientOfFunction)
+                else:
+                    y.append(0)
+            elif (self.exponent == -2):
+                y.append(0)
+        plt.plot(x,y)
+        plt.show()
