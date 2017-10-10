@@ -29,9 +29,11 @@ class Beam:
 				newval=float(val)
 				if newval:
 					c.append(newval)
+
 			temp=singularity(leftdist,c[1],c[0])
-			self.loadequation.append(temp)
-			temp=singularity(rightdistance,c[1],-c[0])
+			temp1=singularity(rightdistance,c[1],-c[0])
+			temp=temp*temp1
+			print(temp)
 			self.loadequation.append(temp)
 	def getBendingMoment(self,dist,magnitude):
 		temp=singularity(dist,-2,magnitude)
@@ -64,13 +66,43 @@ class Beam:
 
 	def calcBendingMomentEq(self):
 		for A in self.shearForceEq:
-			temp=A.integrate()
-			self.bendingMomentEq.append(A)
+			B=singularity(A.constant,A.exponent,A.coefficientOfFunction)
+			temp=B.integrate()
+			self.bendingMomentEq.append(temp)
 		
 	def plotLoadEq(self):
 		x=[x/100.0 for x in range(0,self.length*100,1)]
 		plotpoints=[0]*self.length*100
 		for someValue in self.loadequation:
+			#print(someValue.additionalLimiter)
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+
+		plt.plot(x,plotpoints)
+		plt.show()
+	def plotShearForceEq(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.shearForceEq:
+			#print(someValue.additionalLimiter)
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+
+		plt.plot(x,plotpoints)
+		plt.show()
+	def plotBendingMomentEq(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.bendingMomentEq:
+			#print(someValue.additionalLimiter)
 			currentpoints=someValue.plotpoints(self.length)
 			i=0
 			while(i<self.length*100-1):
