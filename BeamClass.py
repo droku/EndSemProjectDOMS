@@ -16,7 +16,7 @@ class Beam:
 	def getContinuousForce(self, leftdist, rightdistance, equation):
 		equation=re.sub('-','+-',equation)
 		equation=re.sub('\^','',equation)
-		print(equation)
+		#print(equation)
 		a=re.split('[+]',equation)
 		for p in a:
 			b=p.split('x')
@@ -54,8 +54,10 @@ class Beam:
 		print(st)
 	def calcShearForceEq(self):
 		for A in self.loadequation:
-			temp=A.integrate()
-			print(temp)
+			B=singularity(A.constant,A.exponent,-1*A.coefficientOfFunction)
+			temp=B.integrate()
+
+		#	print(temp)
 			self.shearForceEq.append(temp)
 
 	def calcBendingMomentEq(self):
