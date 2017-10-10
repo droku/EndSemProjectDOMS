@@ -1,5 +1,7 @@
 from singularityClass import *
 import re
+import matplotlib.pyplot as plt
+
 class Beam:
 	def __init__(self,length,supportType):
 		self.loadequation=[]
@@ -65,4 +67,16 @@ class Beam:
 			temp=A.integrate()
 			self.bendingMomentEq.append(A)
 		
+	def plotLoadEq(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.loadequation:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
 
+		plt.plot(x,plotpoints)
+		plt.show()

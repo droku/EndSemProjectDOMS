@@ -25,9 +25,8 @@ class singularity:
             else:
                 a='+'+str(self.coefficientOfFunction)+'*'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
         return a
-    def plot(self,length):
-        y=[]
-        x= [x / 100.0 for x in range(0, 1000, 1)]
+    def plotpoints(self,length):
+        x= [x / 100.0 for x in range(0,length*100, 1)]
         y=[]
         for someNumber in x:
             if (someNumber< self.constant and self.exponent >= 0):
@@ -42,5 +41,4 @@ class singularity:
                     y.append(0)
             elif (self.exponent == -2):
                 y.append(0)
-        plt.plot(x,y)
-        plt.show()
+        return y
