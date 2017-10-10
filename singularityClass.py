@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 class singularity:
-    def __init__(self,constant, exponent, coefficientOfFunction,outerConstant=-1):
+    def __init__(self,constant, exponent, coefficientOfFunction,additionalLimiter=-1):
         self.constant=constant
         self.exponent= exponent
         self.coefficientOfFunction=coefficientOfFunction
-        self.additionalLimiter=outerConstant
+        self.additionalLimiter=additionalLimiter
     def integrate(self):
         if(self.exponent <0):
             other=singularity(self.constant,self.exponent+1,self.coefficientOfFunction,self.additionalLimiter)
@@ -26,7 +26,7 @@ class singularity:
             else:
                 a='+'+str(self.coefficientOfFunction)+'*'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
         if(self.additionalLimiter != -1):
-            a=a+'outer Delimiter =' + str(self.additionalLimiter)
+            a=a+'*<x-' + str(self.additionalLimiter)+'>'
         return a
     def plotpoints(self,length):
         x= [x / 100.0 for x in range(0,length*100, 1)]

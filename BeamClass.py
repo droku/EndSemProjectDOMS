@@ -58,7 +58,7 @@ class Beam:
 		print(st)
 	def calcShearForceEq(self):
 		for A in self.loadequation:
-			B=singularity(A.constant,A.exponent,-1*A.coefficientOfFunction)
+			B=singularity(A.constant,A.exponent,-1*A.coefficientOfFunction,A.additionalLimiter)
 			temp=B.integrate()
 
 		#	print(temp)
@@ -66,7 +66,7 @@ class Beam:
 
 	def calcBendingMomentEq(self):
 		for A in self.shearForceEq:
-			B=singularity(A.constant,A.exponent,A.coefficientOfFunction)
+			B=singularity(A.constant,A.exponent,A.coefficientOfFunction,A.additionalLimiter)
 			temp=B.integrate()
 			self.bendingMomentEq.append(temp)
 		
