@@ -1,4 +1,4 @@
-import singularityClass as sng
+from singularityClass import *
 import re
 class Beam:
 	def __init__(self,length,supportType):
@@ -10,7 +10,7 @@ class Beam:
 
 	def getDiscreteForce(self, dist, magnitude):
 		
-		temp = sng(dist,-1,magnitude)
+		temp = singularity(dist,-1,magnitude)
 		self.loadequation.append(temp)
 
 	def getContinuousForce(self, leftdist, rightdistance, equation):
@@ -22,38 +22,45 @@ class Beam:
 			b=p.split('x')
 			c=[]
 			for val in b:
-				if(val==' '):
+				if(val==''):
 					val='1'
 				newval=float(val)
 				if newval:
 					c.append(newval)
-			temp=sng(leftdist,c[1],c[0])
+			temp=singularity(leftdist,c[1],c[0])
 			self.loadequation.append(temp)
-			temp=sng(rightdistance,c[1],-c[0])
+			temp=singularity(rightdistance,c[1],-c[0])
 			self.loadequation.append(temp)
 	def getBendingMoment(self,dist,magnitude):
-		temp=sng(dist,-2,magnitude)
+		temp=singularity(dist,-2,magnitude)
 		self.loadequation.append(temp)	
 	def printLoadEquation(self):
 		st=''
 		for x in self.loadequation:
-			st=st+str(x)
+			st=st+' '+str(x)
+		st=re.sub('\+-','-',st)
 		print(st)
 	def printShearForceEquation(self):
 		st=''
 		for x in self.shearForceEq:
-			st=st+str(x)
+			st=st+' '+str(x)
+		st=re.sub('\+-','-',st)
 		print(st)
 	def printBendingMomentEquation(self):
 		st=''
 		for x in self.bendingMomentEq:
-			st=st+str(x)
+			st=st+' '+str(x)
+		st=re.sub('\+-','-',st)
 		print(st)
 	def calcShearForceEq(self):
-		self.shearForceEq=integrate(self.loadequation)
+		for A in self.loadequation:
+			temp=A.integrate()
+			print(temp)
+			self.shearForceEq.append(temp)
 
 	def calcBendingMomentEq(self):
-		self.bendingMomentEq=integrate(self.shearForceEq)
-
+		for A in self.shearForceEq:
+			temp=A.integrate()
+			self.bendingMomentEq.append(A)
 		
 
