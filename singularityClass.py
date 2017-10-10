@@ -7,10 +7,10 @@ class singularity:
         self.coefficientOfFunction=coefficientOfFunction
     def integrate(self):
         if(self.exponent <0):
-            self.exponent=self.exponent+1
+            other=singularity(self.constant,self.exponent+1,self.coefficientOfFunction)
         else:
-            self.exponent=self.exponent+1
-            self.coefficientOfFunction=self.coefficientOfFunction/(self.exponent)
+            other=singularity(self.constant,self.exponent+1,self.coefficientOfFunction/(self.exponent+1))
+        return other
     def __str__(self):
         a=''
         if (self.constant>0):
@@ -18,9 +18,12 @@ class singularity:
         else:
             strValueOfConstant='+'+str(self.constant)
         if(self.coefficientOfFunction ==1):
-                    a='<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
+                    a='+'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
         else :
-            a=str(self.coefficientOfFunction)+'*'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
+            if(self.coefficientOfFunction>0):
+                a='+'+str(self.coefficientOfFunction)+'*'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
+            else:
+                a='+'+str(self.coefficientOfFunction)+'*'+'<x'+strValueOfConstant+'>'+'^'+str(self.exponent)
         return a
     def plot(self,length):
         y=[]
