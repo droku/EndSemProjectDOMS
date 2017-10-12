@@ -51,10 +51,10 @@ class Beam:
 	
 	def getContinuousForce(self, leftdist, rightdistance, equation):
 		equation=re.sub('-','+-',equation)
-		print(equation)
+		#print(equation)
 		equation=re.sub('\^','',equation)
-		print(equation)
-		print(equation)
+		#print(equation)
+		#print(equation)
 		a=re.split('[+]',equation)
 		for p in a:
 			b=p.split('x')
@@ -65,14 +65,18 @@ class Beam:
 				newval=float(val)
 				if newval:
 					c.append(newval)
-			print(c)
 			if(len(c)<2):
 				c.append(0)
 			temp=singularity(leftdist,c[1],c[0])
 			self.loadequation.append(temp)
 			if(rightdistance != self.length):
-				temp=singularity(rightdistance,c[1],-c[0])
-				self.loadequation.append(temp)
+				i=0
+				k=self.getKnValues(rightdistance,temp)
+				while(i<=temp.exponent):
+					temp1=singularity(rightdistance,i,-k[i])
+					self.loadequation.append(temp1)
+					i=i+1
+				
 	def getBendingMoment(self,dist,magnitude):
 		temp=singularity(dist,-2,magnitude)
 		self.loadequation.append(temp)	
@@ -81,18 +85,21 @@ class Beam:
 		for x in self.loadequation:
 			st=st+' '+str(x)
 		st=re.sub('\+-','-',st)
+		print('Load Equation : ')
 		print(st)
 	def printShearForceEquation(self):
 		st=''
 		for x in self.shearForceEq:
 			st=st+' '+str(x)
 		st=re.sub('\+-','-',st)
+		print('Shear Equation : ')
 		print(st)
 	def printBendingMomentEquation(self):
 		st=''
 		for x in self.bendingMomentEq:
 			st=st+' '+str(x)
 		st=re.sub('\+-','-',st)
+		print('Bending Moment Equation: ')
 		print(st)
 	def calcShearForceEq(self):
 		self.shearForceEq=[]
@@ -179,6 +186,7 @@ class Beam:
 	def maxBendingStress(self):
 		plotpts=self.plotBendingMomentEqPoints()
 		maxBendingMoment=max(abs(i) for i in plotpts)
+		print('Max bending Stress is : ')
 		if(self.areaType=='circle'):
 			momentOfInertia= 3.14* (self.circleradius**4)/4
 			print(maxBendingMoment*self.circleradius/momentOfInertia)
@@ -191,12 +199,15 @@ class Beam:
 
 	def getMomentOfInertia(self):
 		if(self.areaType=='circle'):
+			#print('entered circle')
 			momentOfInertia= 3.14* (self.circleradius**4)/4
 			return momentOfInertia
 		if(self.areaType=='rectangle'):
+			#print('entered rectangle')
 			momentOfInertia=self.rectlength*(self.rectlength**3)/12
 			return momentOfInertia
 		if(self.areaType=='ibeam'):
+			#print('entered Ibeam')
 			momentOfInertia=self.Ia*(self.Ih**3)/12+self.rectlength*((self.IH**3)-(self.Ih**3))/12
 			return momentOfInertia		
 
@@ -211,6 +222,7 @@ class Beam:
 			self.deflection.append(temp)
 		momentOfInertia=self.getMomentOfInertia()
 		for A in self.deflection:
+			print(momentOfInertia)
 			A.coefficientOfFunction=A.coefficientOfFunction*(1/(self.E*momentOfInertia))
 	
 	def printDeflection(self):
@@ -218,6 +230,7 @@ class Beam:
 		for x in self.deflection:
 			st=st+' '+str(x)
 		st=re.sub('\+-','-',st)
+		print('Equation of deflection is: ')
 		print(st)
 	def plotDeflectionPoints(self):
 		x=[x/100.0 for x in range(0,self.length*100,1)]
@@ -232,6 +245,7 @@ class Beam:
 
 		return plotpoints
 	def maxDeflection(self):
+		print('Max deflection is : ')
 		print(max(abs(i)for i in self.plotDeflectionPoints()))
 	def plotDeflection(self):
 		x=[x/100.0 for x in range(0,self.length*100,1)]

@@ -30,13 +30,13 @@ class singularity:
         x= [x / 100.0 for x in range(0, length*100, 1)]
         y=[]
         for someNumber in x:
-            if (someNumber< self.constant and self.exponent >= 0):
+            if (someNumber<=self.constant and self.exponent >= 0):
                 y.append(0)
             elif (someNumber >self.constant and self.exponent >=0):
                 y.append(self.coefficientOfFunction*((someNumber-self.constant)** self.exponent))
             elif (self.exponent == -1):
                 if (someNumber == self.constant):
-                    print("entered condition")
+                    #print("entered condition")
                     y.append(self.coefficientOfFunction)
                 else:
                     y.append(0)
@@ -48,5 +48,11 @@ class singularity:
             print('entered first')
 
             return(self.coefficientOfFunction*((subVal-self.constant)**self.exponent))
+        else:
+            return 0
+    def differentiate(self):
+        if(self.exponent>0):
+            other=singularity(self.constant,self.exponent-1,self.coefficientOfFunction*self.exponent)
+            return other
         else:
             return 0
