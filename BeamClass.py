@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sympy import symbols,Integral,N
 from sympy.abc import x
 class Beam:
-	def __init__(self,length,supportType,x=0,y=0):
+	def __init__(self,length,supportType,areaType,YoungsModulus,x=0,y=0,circleradius=0,rectlength=0,rectbreadth=0,Ia=0,Ib=0,IH=0,Ih=0):
 		self.loadequation=[]
 		self.length=length
 		self.supportType=supportType
@@ -12,7 +12,16 @@ class Beam:
 		self.support2=y
 		self.shearForceEq=[]
 		self.bendingMomentEq=[]
-		
+		self.areaType=areaType
+		self.deflection=[]
+		self.E=YoungsModulus
+		self.circleradius=circleradius
+		self.rectlength=rectlength
+		self.rectbreadth=rectbreadth
+		self.Ia=Ia
+		self.Ib=Ib
+		self.Ih=Ih
+		self.IH=IH
 	def calcSupportReac(self):
 		netLoad=0
 		netBendingMoment=0
@@ -26,10 +35,12 @@ class Beam:
 		for x in integralOfBendingMoment:
 			temp=x.sub(self.length)
 			netBendingMoment=temp+netBendingMoment
-		if(self.supportType=='Pin Joint'):
+		if(self.supportType=='pin joint'):
 			self.getDiscreteForce(self.support1,(netBendingMoment-netLoad*self.support1)*-1/(self.support2-self.support1))
 			self.getDiscreteForce(self.support2,(netLoad*self.support2-netBendingMoment)*-1/(self.support2-self.support1))
-
+		if(self.supportType=='cantilever'):
+			self.getDiscreteForce(0,-1*netLoad)
+			self.getBendingMoment(0,-1*netBendingMoment)
 
 		netBendingMoment=0
 		
@@ -84,6 +95,7 @@ class Beam:
 		st=re.sub('\+-','-',st)
 		print(st)
 	def calcShearForceEq(self):
+		self.shearForceEq=[]
 		for A in self.loadequation:
 			A.coefficientOfFunction=-1*A.coefficientOfFunction
 			temp=A.integrate()
@@ -91,9 +103,148 @@ class Beam:
 			self.shearForceEq.append(temp)
 
 	def calcBendingMomentEq(self):
+		self.bendingMomentEq=[]
 		for A in self.shearForceEq:
 			temp=A.integrate()
-			self.bendingMomentEq.append(A)
+			self.bendingMomentEq.append(temp)
 	
-		
+	def plotLoadEq(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.loadequation:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+		plt.ylabel('load')
+		plt.xlabel('distance')
+		plt.plot(x,plotpoints)
+		plt.show()
+	def plotShearEq(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.shearForceEq:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+		plt.ylabel('Shear')
+		plt.xlabel('distance')
+		plt.plot(x,plotpoints)
+		plt.show()
+	def plotBendingMomentEq(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.bendingMomentEq:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
 
+		plt.plot(x,plotpoints)
+		plt.ylabel('Bending Moment')
+		plt.xlabel('distance')
+		plt.show()
+
+	def plotBendingMomentEqPoints(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.bendingMomentEq:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+
+		return plotpoints
+	def getKnValues(self, rightdistance,sng):
+		k=[]
+		i=0
+		j=1
+		sngt=sng
+		while(i<=sng.exponent):
+			tempk=sngt.coefficientOfFunction*((rightdistance-sngt.constant)**sngt.exponent)/j
+			j=j*(i+1)
+			sngt=sngt.differentiate()
+			k.append(tempk)
+			i=i+1
+		return k
+	def maxBendingStress(self):
+		plotpts=self.plotBendingMomentEqPoints()
+		maxBendingMoment=max(abs(i) for i in plotpts)
+		if(self.areaType=='circle'):
+			momentOfInertia= 3.14* (self.circleradius**4)/4
+			print(maxBendingMoment*self.circleradius/momentOfInertia)
+		if(self.areaType=='rectangle'):
+			momentOfInertia=self.rectbreadth*(self.rectlength**3)/12
+			print(maxBendingMoment*(self.rectlength/2)/momentOfInertia)
+		if(self.areaType=='ibeam'):
+			momentOfInertia=self.Ia*(self.Ih**3)/12+self.Ib*((self.IH**3)-(self.Ih**3))/12
+			print(maxBendingMoment*(self.IH/2)/momentOfInertia)
+
+	def getMomentOfInertia(self):
+		if(self.areaType=='circle'):
+			momentOfInertia= 3.14* (self.circleradius**4)/4
+			return momentOfInertia
+		if(self.areaType=='rectangle'):
+			momentOfInertia=self.rectlength*(self.rectlength**3)/12
+			return momentOfInertia
+		if(self.areaType=='ibeam'):
+			momentOfInertia=self.Ia*(self.Ih**3)/12+self.rectlength*((self.IH**3)-(self.Ih**3))/12
+			return momentOfInertia		
+
+	def calcDeflection(self):
+		
+		temp1=[]
+		for A in self.bendingMomentEq:
+			temp=A.integrate()
+			temp1.append(temp)
+		for A in temp1:
+			temp=A.integrate()
+			self.deflection.append(temp)
+		momentOfInertia=self.getMomentOfInertia()
+		for A in self.deflection:
+			A.coefficientOfFunction=A.coefficientOfFunction*(1/(self.E*momentOfInertia))
+	
+	def printDeflection(self):
+		st=''
+		for x in self.deflection:
+			st=st+' '+str(x)
+		st=re.sub('\+-','-',st)
+		print(st)
+	def plotDeflectionPoints(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.deflection:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+
+		return plotpoints
+	def maxDeflection(self):
+		print(max(abs(i)for i in self.plotDeflectionPoints()))
+	def plotDeflection(self):
+		x=[x/100.0 for x in range(0,self.length*100,1)]
+		plotpoints=[0]*self.length*100
+		for someValue in self.deflection:
+			currentpoints=someValue.plotpoints(self.length)
+			i=0
+			while(i<self.length*100-1):
+				#print(i)
+				plotpoints[i]=plotpoints[i]+currentpoints[i]
+				i=i+1
+		plt.plot(x,plotpoints)
+		plt.ylabel('deflection')
+		plt.xlabel('distance')
+		plt.show()
+		

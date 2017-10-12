@@ -1,6 +1,6 @@
 from BeamClass import *
 from sympy import *
-newBeam=Beam(8,'Pin Joint',0,8)
+newBeam=Beam(8,'cantilever',0,8)
 newBeam.getDiscreteForce(2,1000)
 newBeam.getDiscreteForce(6,800)
 newBeam.getContinuousForce(2,6,'200x^0')
@@ -12,6 +12,9 @@ newBeam.calcBendingMomentEq()
 newBeam.printLoadEquation()
 newBeam.printShearForceEquation()
 newBeam.printBendingMomentEquation()
+newBeam.plotLoadEq()
+newBeam.plotShearEq()
+newBeam.plotBendingMomentEq()
 # # def calSupportReaction(concForce,concMoment,distributedForce,distSupport,support_type):
 #     sumforce = 0
 #     summoment = 0
