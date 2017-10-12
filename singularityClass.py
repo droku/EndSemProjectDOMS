@@ -43,3 +43,10 @@ class singularity:
             elif (self.exponent == -2):
                 y.append(0)
         return y
+    def sub(self, subVal):
+        if(subVal>= self.constant and self.exponent>=0):
+            print('entered first')
+
+            return(self.coefficientOfFunction*((subVal-self.constant)**self.exponent))
+        else:
+            return 0

@@ -1,59 +1,49 @@
 from singularityClass import *
-import re
+import re 
 import matplotlib.pyplot as plt
-from sympy import *
+from sympy import symbols,Integral,N
+from sympy.abc import x
 class Beam:
-	def __init__(self,length,supportType):
+	def __init__(self,length,supportType,x=0,y=0):
 		self.loadequation=[]
 		self.length=length
 		self.supportType=supportType
+		self.support1=x
+		self.support2=y
 		self.shearForceEq=[]
 		self.bendingMomentEq=[]
-		self.ConcForce = []
-		self.concMoment = []
-		self.distributedForce = []
-		self.disSupport = []
-		self.x = Symbol('x')
-		self.sumforce = 0
-		self.summoment = 0
-	def calSupportReaction(self):
-	
-    		for i in range(0,len(self.concForce)):
-        		self.sumforce += self.concForce[i][0]
-        		self.summoment += self.concForce[i][0]*self.concForce[i][1]
-				
 		
-    		for i in range(0,len(self.concMoment)):
-        		self.summoment += self.concMoment[i][0]
-				
-		
-    		for i in range(0,len(self.distributedForce)):
-        		self.sumforce += N(integrate(self.distributedForce[i][0],(self.x,self.distributedForce[i][1],self.distributedForce[i][2])))
-        		self.summoment += N(integrate(self.x*self.distributedForce[i][0],(self.x,self.distributedForce[i][1],self.distributedForce[i][2])))
-				
+	def calcSupportReac(self):
+		netLoad=0
+		netBendingMoment=0
+		integralOfBendingMoment=[]
+		for x in self.shearForceEq:
+			temp=x.sub(self.length)
+			netLoad=netLoad+temp
+		for x in self.bendingMomentEq:
+			temp=x.integrate()
+			integralOfBendingMoment.append(temp)
+		for x in integralOfBendingMoment:
+			temp=x.sub(self.length)
+			netBendingMoment=temp+netBendingMoment
+		if(self.supportType=='Pin Joint'):
+			self.getDiscreteForce(self.support1,(netBendingMoment-netLoad*self.support1)*-1/(self.support2-self.support1))
+			self.getDiscreteForce(self.support2,(netLoad*self.support2-netBendingMoment)*-1/(self.support2-self.support1))
 
-    	if self.supportType is 'pinjoint':
-    		reaction2 = -(self.summoment)/float(self.distSupport[1]-self.distsupport[0])
-    		reaction1 = -(self.sumforce) - reaction2
-    		getDiscreteForce(self.distSupport[0],reaction1)
-			getDiscreteForce(self.distSupport[1],reaction2)
-		if self.supportType is 'cantilever':
-        	reaction_moment = -(summoment)
-        	reaction_force = -(sumforce)
-        	getBendingMoment(self.distSupport[0],reaction_moment)
-			getDiscreteForce(self.distSupport[0],reaction_force)
+
+		netBendingMoment=0
 		
 	def getDiscreteForce(self, dist, magnitude):
-		self.ConcForce.append([magnitude,dist])
 		temp = singularity(dist,-1,magnitude)
 		self.loadequation.append(temp)
 
+	
 	def getContinuousForce(self, leftdist, rightdistance, equation):
 		equation=re.sub('-','+-',equation)
-		#print(equation)
+		print(equation)
 		equation=re.sub('\^','',equation)
-		#print(equation)
-		#print(equation)
+		print(equation)
+		print(equation)
 		a=re.split('[+]',equation)
 		for p in a:
 			b=p.split('x')
@@ -65,13 +55,14 @@ class Beam:
 				if newval:
 					c.append(newval)
 			print(c)
+			if(len(c)<2):
+				c.append(0)
 			temp=singularity(leftdist,c[1],c[0])
-			self.distributedForce.append([c[0]*(self.x**c[1]),leftdist,rightdistance])
 			self.loadequation.append(temp)
-			temp=singularity(rightdistance,c[1],-c[0])
-			self.loadequation.append(temp)
+			if(rightdistance != self.length):
+				temp=singularity(rightdistance,c[1],-c[0])
+				self.loadequation.append(temp)
 	def getBendingMoment(self,dist,magnitude):
-		self.concMoment.append([magnitude,dist])
 		temp=singularity(dist,-2,magnitude)
 		self.loadequation.append(temp)	
 	def printLoadEquation(self):
