@@ -222,7 +222,7 @@ class Beam:
 			self.deflection.append(temp)
 		momentOfInertia=self.getMomentOfInertia()
 		for A in self.deflection:
-			print(momentOfInertia)
+			#print(momentOfInertia)
 			A.coefficientOfFunction=A.coefficientOfFunction*(1/(self.E*momentOfInertia))
 	
 	def printDeflection(self):

@@ -1,10 +1,14 @@
 from BeamClass import *
 from sympy import *
 newBeam=Beam(10,'cantilever','circle',70*(10**9),0,0,5)
-newBeam.getDiscreteForce(5 ,10)
+newBeam.getDiscreteForce(2 ,10)
+newBeam.getDiscreteForce(4 ,10)
+newBeam.getDiscreteForce(6 ,10)
+newBeam.getDiscreteForce(8,10)
+
 #newBeam.getContinuousForce(3,6,'10')
 #newBeam.getContinuousForce(3,6,'-5x')
-newBeam.getContinuousForce(3,6,'x^2')
+#newBeam.getContinuousForce(3,6,'x^2')
 
 newBeam.calcShearForceEq()
 newBeam.calcBendingMomentEq()
