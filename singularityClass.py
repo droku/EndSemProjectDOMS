@@ -27,7 +27,7 @@ class singularity:
         return a
     def plotpoints(self,length):
         y=[]
-        x= [x / 100.0 for x in range(0, length*100, 1)]
+        x= [x / 100.0 for x in range(0, int(length*100), 1)]
         y=[]
         for someNumber in x:
             if (someNumber<=self.constant and self.exponent >= 0):

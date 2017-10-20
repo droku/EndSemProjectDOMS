@@ -116,8 +116,8 @@ class Beam:
 			self.bendingMomentEq.append(temp)
 	
 	def plotLoadEq(self):
-		x=[x/100.0 for x in range(0,self.length*100,1)]
-		plotpoints=[0]*self.length*100
+		x=[x/100.0 for x in range(0,int(self.length*100),1)]
+		plotpoints=[0]*int(self.length*100)
 		for someValue in self.loadequation:
 			currentpoints=someValue.plotpoints(self.length)
 			i=0
@@ -130,8 +130,8 @@ class Beam:
 		plt.plot(x,plotpoints)
 		plt.show()
 	def plotShearEq(self):
-		x=[x/100.0 for x in range(0,self.length*100,1)]
-		plotpoints=[0]*self.length*100
+		x=[x/100.0 for x in range(0,int(self.length*100),1)]
+		plotpoints=[0]*int(self.length*100)
 		for someValue in self.shearForceEq:
 			currentpoints=someValue.plotpoints(self.length)
 			i=0
@@ -144,8 +144,8 @@ class Beam:
 		plt.plot(x,plotpoints)
 		plt.show()
 	def plotBendingMomentEq(self):
-		x=[x/100.0 for x in range(0,self.length*100,1)]
-		plotpoints=[0]*self.length*100
+		x=[x/100.0 for x in range(0,int(self.length*100),1)]
+		plotpoints=[0]*int(self.length*100)
 		for someValue in self.bendingMomentEq:
 			currentpoints=someValue.plotpoints(self.length)
 			i=0
@@ -160,8 +160,8 @@ class Beam:
 		plt.show()
 
 	def plotBendingMomentEqPoints(self):
-		x=[x/100.0 for x in range(0,self.length*100,1)]
-		plotpoints=[0]*self.length*100
+		x=[x/100.0 for x in range(0,int(self.length*100),1)]
+		plotpoints=[0]*int(self.length*100)
 		for someValue in self.bendingMomentEq:
 			currentpoints=someValue.plotpoints(self.length)
 			i=0
@@ -233,8 +233,8 @@ class Beam:
 		print('Equation of deflection is: ')
 		print(st)
 	def plotDeflectionPoints(self):
-		x=[x/100.0 for x in range(0,self.length*100,1)]
-		plotpoints=[0]*self.length*100
+		x=[x/100.0 for x in range(0,int(self.length*100),1)]
+		plotpoints=[0]*int(self.length*100)
 		for someValue in self.deflection:
 			currentpoints=someValue.plotpoints(self.length)
 			i=0
@@ -248,8 +248,8 @@ class Beam:
 		print('Max deflection is : ')
 		print(max(abs(i)for i in self.plotDeflectionPoints()))
 	def plotDeflection(self):
-		x=[x/100.0 for x in range(0,self.length*100,1)]
-		plotpoints=[0]*self.length*100
+		x=[x/100.0 for x in range(0,int(self.length*100),1)]
+		plotpoints=[0]*int(self.length*100)
 		for someValue in self.deflection:
 			currentpoints=someValue.plotpoints(self.length)
 			i=0

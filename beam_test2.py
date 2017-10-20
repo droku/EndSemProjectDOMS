@@ -1,6 +1,6 @@
 from BeamClass import *
 from sympy import *
-newBeam=Beam(10,'cantilever','circle',70*(10**9),0,0,5)
+newBeam=Beam(10.5,'cantilever','circle',70*(10**9),0,0,5)
 newBeam.getDiscreteForce(2 ,10)
 newBeam.getDiscreteForce(4 ,10)
 newBeam.getDiscreteForce(6 ,10)
