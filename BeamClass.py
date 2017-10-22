@@ -50,32 +50,29 @@ class Beam:
 
 	
 	def getContinuousForce(self, leftdist, rightdistance, equation):
-		equation=re.sub('-','+-',equation)
 		#print(equation)
 		equation=re.sub('\^','',equation)
 		#print(equation)
-		#print(equation)
-		a=re.split('[+]',equation)
-		for p in a:
-			b=p.split('x')
-			c=[]
-			for val in b:
-				if(val==''):
-					val='1'
-				newval=float(val)
-				if newval:
-					c.append(newval)
-			if(len(c)<2):
-				c.append(0)
-			temp=singularity(leftdist,c[1],c[0])
-			self.loadequation.append(temp)
-			if(rightdistance != self.length):
-				i=0
-				k=self.getKnValues(rightdistance,temp)
-				while(i<=temp.exponent):
-					temp1=singularity(rightdistance,i,-k[i])
-					self.loadequation.append(temp1)
-					i=i+1
+		print(equation)
+		b=equation.split('x')
+		c=[]
+		for val in b:
+			if(val==''):
+				val=1.0
+			newval=float(val)
+			if newval:
+				c.append(newval)
+		if(len(c)<2):
+			c.append(0)
+		temp=singularity(leftdist,c[1],c[0])
+		self.loadequation.append(temp)
+		if(rightdistance != self.length):
+			i=0
+			k=self.getKnValues(rightdistance,temp)
+			while(i<=temp.exponent):
+				temp1=singularity(rightdistance,i,-k[i])
+				self.loadequation.append(temp1)
+				i=i+1
 				
 	def getBendingMoment(self,dist,magnitude):
 		temp=singularity(dist,-2,magnitude)

@@ -43,7 +43,7 @@ while(i<no):
 	right=float(input('Please enter rightend where force terminates: '))
 	equation=input('Please enter equation of the force: ')
 	equation=equation.replace('-','+-')
-	equation=equation.split('+-')
+	equation=equation.split('+')
 	for everyPart in equation:
 		newBeam.getContinuousForce(left,right,everyPart)
 	i=i+1
