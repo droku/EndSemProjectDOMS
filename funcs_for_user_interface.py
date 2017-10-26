@@ -1,12 +1,12 @@
 def getValuesForNewBeam(builder,pinjoint,cantilever):
 	resultantDictionary={}
-	resultantDictionary['Length']=float(builder.get_object('Length_Of_Beam').get_text())
+	resultantDictionary['Length']=float(builder.get_object('Length_of_Beam').get_text())
 	resultantDictionary['E']=float(builder.get_object('Youngs_Modulus').get_text())
 	if(pinjoint):
 		resultantDictionary['Support-Type']='pin joint'
 	else:
 		resultantDictionary['Support-Type']='cantilever'
-	builder.get_object('Length_Of_Beam').set_text('Value Set')
+	builder.get_object('Length_of_Beam').set_text('Value Set')
 	builder.get_object('Youngs_Modulus').set_text('Value Set')
 	return resultantDictionary
 def getValuesForDiscreteForce(builder):

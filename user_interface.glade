@@ -1,26 +1,217 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
-  <object class="GtkSizeGroup" id="sizegroup1"/>
-  <object class="GtkWindow" id="support_window">
+  <object class="GtkWindow" id="CircleWindow">
+    <property name="name">Circle_window</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkBox" id="box9">
+      <object class="GtkBox" id="box400">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="box10">
+          <object class="GtkEntry" id="Radius">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="placeholder_text" translatable="yes">Radius</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="submit402">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="relief">none</property>
+            <property name="xalign">0.50999999046325684</property>
+            <signal name="clicked" handler="on_circle_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="IbeamWindow">
+    <property name="name">Ibeam_window</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="box500">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkGrid" id="grid500">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkEntry" id="Support_X_Distance">
+              <object class="GtkEntry" id="Ia">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="margin_right">30</property>
-                <property name="hexpand">True</property>
-                <property name="placeholder_text" translatable="yes">SupportX distance</property>
+                <property name="placeholder_text" translatable="yes">Ia</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="Ib">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Ib</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="IH">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">IH</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="Ih">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Ih</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button21">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_ibeam_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="RectangleWindow">
+    <property name="name">Rectangle_window</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="box1001">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkGrid" id="grid1001">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkEntry" id="Length">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Length</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="Breadth">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="placeholder_text" translatable="yes">Breadth</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="button31">
+            <property name="label" translatable="yes">Submit</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_rectangle_submit_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkSizeGroup" id="sizegroup1"/>
+  <object class="GtkWindow" id="support_window">
+    <property name="name">Support_Reactions</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="box420">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkEntry" id="Support_X_Distance">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="margin_bottom">125</property>
+            <property name="hexpand">True</property>
+            <property name="placeholder_text" translatable="yes">Support_X_Distance</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box421">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkEntry" id="Support_Y_Distance">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="margin_top">48</property>
+                <property name="placeholder_text" translatable="yes">Support_Y_Distance</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -29,13 +220,14 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="Support_Y_Distance">
+              <object class="GtkButton" id="Submit420">
+                <property name="label" translatable="yes">Submit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="margin_left">30</property>
+                <property name="receives_default">True</property>
+                <property name="margin_top">147</property>
                 <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="placeholder_text" translatable="yes">SupportY distance</property>
+                <signal name="clicked" handler="on_Support_Submit_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -47,20 +239,6 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="Support_Submit">
-            <property name="label" translatable="yes">submit</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <signal name="clicked" handler="on_Support_Submit_clicked" swapped="no"/>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -68,6 +246,7 @@
     </child>
   </object>
   <object class="GtkWindow" id="window1">
+    <property name="name">Beam_Solver</property>
     <property name="can_focus">False</property>
     <child>
       <object class="GtkBox" id="box1">
@@ -79,21 +258,6 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkEntry" id="Length_Of_Beam">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="placeholder_text" translatable="yes">Length of Beam</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkEntry" id="Youngs_Modulus">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -104,8 +268,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -114,13 +276,15 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="margin_left">25</property>
+                <property name="margin_right">25</property>
+                <property name="margin_top">23</property>
+                <property name="margin_bottom">28</property>
                 <signal name="clicked" handler="on_Create_New_Beam_Button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -133,7 +297,8 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="xalign">0</property>
+                    <property name="xalign">0.0099999997764825821</property>
+                    <property name="yalign">0.51999998092651367</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <signal name="clicked" handler="on_Support_Type_Pin_Joint_clicked" swapped="no"/>
@@ -152,6 +317,7 @@
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="xalign">0</property>
+                    <property name="yalign">0.52999997138977051</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">Support_Type_Pin_Joint</property>
@@ -167,8 +333,97 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="box9">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkGrid" id="grid2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkRadioButton" id="Area_Type_Circle">
+                        <property name="label" translatable="yes">Circle</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="margin_top">16</property>
+                        <property name="margin_bottom">14</property>
+                        <property name="xalign">0.079999998211860657</property>
+                        <property name="yalign">0.52999997138977051</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                        <signal name="clicked" handler="on_Area_Type_Circle_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="Area_Type_Rectangle">
+                        <property name="label" translatable="yes">Rectangle</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="xalign">0</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">Area_Type_Circle</property>
+                        <signal name="clicked" handler="on_Area_Type_Rectangle_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="Area_Type_IBeam">
+                        <property name="label" translatable="yes">I-Beam</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="margin_top">4</property>
+                        <property name="xalign">0</property>
+                        <property name="yalign">0.44999998807907104</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">Area_Type_Circle</property>
+                        <signal name="clicked" handler="on_Area_Type_IBeam_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="Length_of_Beam">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="margin_top">4</property>
+                    <property name="margin_bottom">1</property>
+                    <property name="placeholder_text" translatable="yes">Length_of_Beam</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
               </packing>
             </child>
           </object>
